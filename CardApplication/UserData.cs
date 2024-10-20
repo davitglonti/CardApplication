@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CardApplication
 {
+    // Class to store details about each transaction
     public class Transaction
     {
         public string TransactionDate { get; set; }
@@ -14,6 +15,7 @@ namespace CardApplication
         public decimal AmountEUR { get; set; }
     }
 
+    // Class to store card details
     public class CardDetails
     {
         public string CardNumber { get; set; }
@@ -21,6 +23,8 @@ namespace CardApplication
         public string CVC { get; set; }
     }
 
+
+    // Main class that holds user data
     public class UserData
     {
         public string FirstName { get; set; }
