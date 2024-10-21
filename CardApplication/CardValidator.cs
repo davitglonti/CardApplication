@@ -35,5 +35,30 @@ namespace CardApplication
             return false;
         }
 
+
+        public static bool CheckPinCode(string storedPinCode)
+        {
+            Console.WriteLine("Please enter your PIN:");
+            string enteredPin = Console.ReadLine();
+
+            if (enteredPin == storedPinCode)
+            {
+                Console.WriteLine("Pin Valid");
+                return true;
+            } else
+            {
+                Console.WriteLine("Invalid Pin");
+            }
+            return true;
+
+          
+            
+        }
+
+
+
+
+
+
     }
 }

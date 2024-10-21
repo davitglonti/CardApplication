@@ -8,9 +8,9 @@ namespace CardApplication
         static void Main(string[] args)
         {
              string jsonData = File.ReadAllText(@"C:\Users\davit\source\repos\CardApplication\CardApplication\CardData.json");
-
-             // Deserialize the JSON data to UserData object
-             UserData userData = JsonConvert.DeserializeObject<UserData>(jsonData);
+            bool LoggedIn = false;
+            // Deserialize the JSON data to UserData object
+            UserData userData = JsonConvert.DeserializeObject<UserData>(jsonData);
 
             // Prompt user for card number
             Console.WriteLine("Please enter your card number (format: 1234-5678-9012-3456):");
@@ -38,10 +38,30 @@ namespace CardApplication
                  Console.WriteLine("Invalid expiration Date.");
             }
 
-            Console.WriteLine($"Welcome {userData.FirstName} {userData.LastName}");
+            if (!CardValidator.CheckPinCode(userData.PinCode))
+            {
+                Console.WriteLine("Invalid PIN. Exiting...");
+                return; // Exit if PIN code check fails
+            }
+
+            // Checks that all fields are correct
+            if (CardValidator.IsExpirationDataValid(userExpirationDate) && CardValidator.IsExpirationDataValid(userExpirationDate) && CardValidator.CheckPinCode(userData.PinCode))
+            {
+                LoggedIn = true; // Successfully logged in
+                Console.WriteLine(LoggedIn);
+            }
+
+            
+            if(LoggedIn)
+            {
+                UserMenu.UserDisplay(LoggedIn);
+            }
+
+
+           /* Console.WriteLine($"Welcome {userData.FirstName} {userData.LastName}");
             Console.WriteLine($"Card Number: {userData.CardDetails.CardNumber}");
             Console.WriteLine($"Expiration Date: {userData.CardDetails.ExpirationDate}");
-
+           */
 
 
 
