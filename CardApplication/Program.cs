@@ -54,7 +54,7 @@ namespace CardApplication
             
             if(LoggedIn)
             {
-                UserMenu.UserDisplay(LoggedIn);
+                UserMenu.UserDisplay(userData, LoggedIn);
             }
 
 

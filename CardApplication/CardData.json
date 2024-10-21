@@ -13,6 +13,12 @@
       "transactionType": "ChangePin",
       "amountUSD": 0,
       "amountEUR": 0
+    },
+    {
+      "transactionDate": "2024-01-03T10:15:30Z",
+      "transactionType": "ChangePin",
+      "amountUSD": 100,
+      "amountEUR": 0
     }
   ]
 }

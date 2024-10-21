@@ -8,7 +8,7 @@ namespace CardApplication
 {
     internal class UserMenu
     {
-        public static void UserDisplay(bool loggedIn)
+        public static void UserDisplay(UserData userData, bool loggedIn)
         {
             if(loggedIn)
             {
@@ -27,7 +27,7 @@ namespace CardApplication
                 switch (choice)
                 {
                     case "1":
-                        Console.WriteLine("you balance now: 100$");
+                        TransactionHandler.ViewBalance(userData);
                         break;
                     case "2":
                         Console.WriteLine("withdraw monew now");
@@ -36,7 +36,7 @@ namespace CardApplication
                         Console.WriteLine("deposite money");
                         break;
                     case "4":
-                        Console.WriteLine("last transactions: ");
+                        TransactionHandler.ViewLastTransactions(userData);
                         break;
                     case "5":
                         Console.WriteLine("change Pin now");
