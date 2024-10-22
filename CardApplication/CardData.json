@@ -119,6 +119,27 @@
       "Amount": 0.0,
       "AmountUSD": 5.0,
       "AmountEUR": 5.0
+    },
+    {
+      "TransactionDate": "2024-10-22T21:33:40Z",
+      "TransactionType": "Deposit",
+      "Amount": 0.0,
+      "AmountUSD": 5.0,
+      "AmountEUR": 5.0
+    },
+    {
+      "TransactionDate": "2024-10-22T21:36:18Z",
+      "TransactionType": "Deposit",
+      "Amount": 0.0,
+      "AmountUSD": 22.0,
+      "AmountEUR": 5.0
+    },
+    {
+      "TransactionDate": "2024-10-22T21:37:11Z",
+      "TransactionType": "Deposit",
+      "Amount": 0.0,
+      "AmountUSD": 2.0,
+      "AmountEUR": 5.0
     }
   ]
 }

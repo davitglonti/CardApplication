@@ -138,7 +138,7 @@ namespace CardApplication
                 {
                     TransactionDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ"),
                     TransactionType = "Deposit",
-                    AmountUSD = lastTransaction.AmountUSD,
+                    AmountUSD = amountToDeposit,
                     AmountEUR = lastTransaction.AmountEUR
                 };
 
