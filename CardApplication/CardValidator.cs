@@ -10,28 +10,43 @@ namespace CardApplication
 
         /// Validates the format of the card number.
         /// The expected format is four groups of four digits separated ("1234-5678-9012-3456").
-        public static bool IsCardNumberValid(string cardNumber)
+        public static bool IsCardNumberValid(string cardNumber, UserData userData)
         {
+            // Split card number into parts using "-"
             string[] parts = cardNumber.Split("-");
-            if(parts.Length !=4)
+
+            // Check if the card number has exactly four parts
+            if (parts.Length != 4)
             {
                 return false;
-            } 
-            else
-            {
-                return parts.All(part => part.All(char.IsDigit));
             }
+
+            // Ensure each part is a group of digits and compare with stored card number
+            if (parts.All(part => part.All(char.IsDigit)) && cardNumber == userData.CardDetails.CardNumber)
+            {
+                return true; // Valid card number format and matches stored data
+            }
+
+            return false; 
         }
 
 
-      
-        public static bool IsExpirationDataValid(string expirationDate)
+
+        /* Validates the expiration date format and checks if it is in the future.
+         The expected format is "MM/yy". */
+        public static bool IsExpirationDataValid(string expirationDate, UserData userData)
         {
-            if (DateTime.TryParseExact(expirationDate, "MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime expDate))
+            // Access the expiration date from userData's CardDetails
+            if (expirationDate == userData.CardDetails.ExpirationDate)
             {
-                return expDate > DateTime.Now;
+                Console.WriteLine("Valid expiration date.");
+                return true;
             }
-            return false;
+            else
+            {
+                Console.WriteLine("Invalid expiration date.");
+                return false;
+            }
         }
 
 
@@ -44,12 +59,12 @@ namespace CardApplication
             {
                 Console.WriteLine("Pin Valid");
                 return true;
-            } else
+            }
+            else
             {
                 Console.WriteLine("Invalid Pin");
+                return false; // Return false if the PIN is incorrect
             }
-            return true;
-
         }
     }
 }

@@ -19,7 +19,7 @@ namespace CardApplication
             string userCardNumber = Console.ReadLine();
 
             // Validate card number
-            if (!CardValidator.IsCardNumberValid(userCardNumber))
+            if (!CardValidator.IsCardNumberValid(userCardNumber, userData))
             {
                 Console.WriteLine("Invalid card number format or does not match stored data.");
                 return;
@@ -34,7 +34,7 @@ namespace CardApplication
             string userExpirationDate = Console.ReadLine();
 
             // Validate expiration date
-            if (!CardValidator.IsExpirationDataValid(userExpirationDate))
+            if (!CardValidator.IsExpirationDataValid(userExpirationDate, userData))
             {
                 Console.WriteLine("Invalid expiration date.");
                 return; // Exit if expiration date check fails
