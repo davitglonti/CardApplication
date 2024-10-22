@@ -24,8 +24,7 @@ namespace CardApplication
         }
 
 
-        /* Validates the expiration date format and checks if it is in the future.
-         The expected format is "MM/yy". */
+      
         public static bool IsExpirationDataValid(string expirationDate)
         {
             if (DateTime.TryParseExact(expirationDate, "MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime expDate))
@@ -51,14 +50,6 @@ namespace CardApplication
             }
             return true;
 
-          
-            
         }
-
-
-
-
-
-
     }
 }

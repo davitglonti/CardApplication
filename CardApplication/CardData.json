@@ -1,24 +1,124 @@
 {
-  "firstName": "John",
-  "lastName": "Doe",
-  "cardDetails": {
-    "cardNumber": "1234-5678-9012-3456",
-    "expirationDate": "12/25",
+  "FirstName": "John",
+  "LastName": "Doe",
+  "CardDetails": {
+    "CardNumber": "1234-5678-9012-3456",
+    "ExpirationDate": "12/25",
     "CVC": "123"
   },
-  "pinCode": "1234",
-  "transactionHistory": [
+  "PinCode": "1234",
+  "TransactionHistory": [
     {
-      "transactionDate": "2024-01-03T10:15:30Z",
-      "transactionType": "ChangePin",
-      "amountUSD": 0,
-      "amountEUR": 0
+      "TransactionDate": "2024-01-03T10:15:30Z",
+      "TransactionType": "ChangePin",
+      "Amount": 100.0,
+      "AmountUSD": 0.0,
+      "AmountEUR": 0.0
     },
     {
-      "transactionDate": "2024-01-03T10:15:30Z",
-      "transactionType": "ChangePin",
-      "amountUSD": 100,
-      "amountEUR": 0
+      "TransactionDate": "2024-01-03T10:15:30Z",
+      "TransactionType": "ChangePin",
+      "Amount": 24.0,
+      "AmountUSD": 100.0,
+      "AmountEUR": 0.0
+    },
+    {
+      "TransactionDate": "2024-10-22T18:45:30Z",
+      "TransactionType": "Withdraw",
+      "Amount": 0.0,
+      "AmountUSD": 21.0,
+      "AmountEUR": 17.85
+    },
+    {
+      "TransactionDate": "2024-10-22T18:48:38Z",
+      "TransactionType": "Withdraw",
+      "Amount": 0.0,
+      "AmountUSD": 2.0,
+      "AmountEUR": 2.0
+    },
+    {
+      "TransactionDate": "2024-10-22T18:53:48Z",
+      "TransactionType": "Deposit",
+      "Amount": 0.0,
+      "AmountUSD": 5.0,
+      "AmountEUR": 4.25
+    },
+    {
+      "TransactionDate": "2024-10-22T18:54:36Z",
+      "TransactionType": "Deposit",
+      "Amount": 0.0,
+      "AmountUSD": 2.0,
+      "AmountEUR": 1.70
+    },
+    {
+      "TransactionDate": "2024-10-22T19:25:35Z",
+      "TransactionType": "ChangePin",
+      "Amount": 0.0,
+      "AmountUSD": 0.0,
+      "AmountEUR": 0.0
+    },
+    {
+      "TransactionDate": "2024-10-22T20:06:29Z",
+      "TransactionType": "Currency Conversion (GEL to USD)",
+      "Amount": 10.0,
+      "AmountUSD": 3.3333333333333333333333333330,
+      "AmountEUR": 0.0
+    },
+    {
+      "TransactionDate": "2024-10-22T20:09:12Z",
+      "TransactionType": "Currency Conversion (USD to GEL)",
+      "Amount": 12.0,
+      "AmountUSD": 36.0,
+      "AmountEUR": 0.0
+    },
+    {
+      "TransactionDate": "2024-10-22T20:13:11Z",
+      "TransactionType": "Currency Conversion (EUR to GEL)",
+      "Amount": 12.0,
+      "AmountUSD": 0.0,
+      "AmountEUR": 42.0
+    },
+    {
+      "TransactionDate": "2024-10-22T20:19:41Z",
+      "TransactionType": "Currency Conversion (GEL to USD)",
+      "Amount": 10.0,
+      "AmountUSD": 0.0,
+      "AmountEUR": 42.0
+    },
+    {
+      "TransactionDate": "2024-10-22T20:52:06Z",
+      "TransactionType": "Currency Conversion (GEL to EUR)",
+      "Amount": 12.0,
+      "AmountUSD": 0.0,
+      "AmountEUR": 42.0
+    },
+    {
+      "TransactionDate": "2024-10-22T20:53:06Z",
+      "TransactionType": "ChangePin",
+      "Amount": 12.0,
+      "AmountUSD": 50.0,
+      "AmountEUR": 42.0
+    },
+    {
+      "TransactionDate": "2024-10-22T20:57:37Z",
+      "TransactionType": "Withdraw",
+      "Amount": 0.0,
+      "AmountUSD": 2.0,
+      "AmountEUR": 2.0
+    },
+    {
+      "TransactionDate": "2024-10-22T20:58:15Z",
+      "TransactionType": "Deposit",
+      "Amount": 0.0,
+      "AmountUSD": 5.0,
+      "AmountEUR": 5.0
+    },
+    {
+      "TransactionDate": "2024-10-22T21:02:35Z",
+      "TransactionType": "Deposit",
+      "Amount": 0.0,
+      "AmountUSD": 5.0,
+      "AmountEUR": 5.0
     }
   ]
 }
