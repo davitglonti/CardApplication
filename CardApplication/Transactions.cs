@@ -11,76 +11,95 @@ namespace CardApplication
         {
             var lastTransaction = userData.TransactionHistory[userData.TransactionHistory.Count - 1]; // Using index
 
-            decimal totalGEL = lastTransaction.Amount; // Assuming this is in GEL
-            decimal totalUSD = lastTransaction.AmountUSD;
-            decimal totalEUR = lastTransaction.AmountEUR;
+            if (lastTransaction != null)
+            {
+                decimal totalGEL = lastTransaction.Amount;
+                decimal totalUSD = lastTransaction.AmountUSD;
+                decimal totalEUR = lastTransaction.AmountEUR;
 
-            Console.WriteLine($"\nTotal Balance:");
-            Console.WriteLine($"GEL: {totalGEL:C}");
-            Console.WriteLine($"USD: {totalUSD:C}");
-            Console.WriteLine($"EUR: {totalEUR:C}"); 
+                Console.WriteLine($"\nTotal Balance:");
+                Console.WriteLine($"GEL: {totalGEL:C}");
+                Console.WriteLine($"USD: {totalUSD:C}");
+                Console.WriteLine($"EUR: {totalEUR:C}");
+            }
+            else
+            {
+                Console.WriteLine("No transactions found.");
+            }
         }
+
+
+        // This method processes transactions (either deposit or withdrawal) based on the type and amount.
+        public static void ProcessTransaction(UserData userData, string transactionType, decimal amount)
+        {
+            var lastTransaction = userData.TransactionHistory.LastOrDefault();
+            decimal currentBalance = lastTransaction?.AmountUSD ?? 0;  // Get current balance in USD.
+
+            // If it's a withdrawal and the amount exceeds the balance, stop the process.
+            if (transactionType == "Withdraw" && amount > currentBalance)
+            {
+                Console.WriteLine("Insufficient funds for this withdrawal.");
+                return;
+            }
+
+            // Update the balance depending on whether it's a withdrawal or deposit.
+            decimal newBalance = transactionType == "Withdraw" ? currentBalance - amount : currentBalance + amount;
+
+            // Create a new transaction object with the updated balance and transaction type.
+            var newTransaction = new Transaction
+            {
+                TransactionDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ"),  // Save current date and time.
+                TransactionType = transactionType,  // Save transaction type (Deposit/Withdraw).
+                AmountUSD = newBalance,  // Updated USD balance.
+                AmountEUR = lastTransaction?.AmountEUR ?? 0  // Keep EUR balance from the last transaction.
+            };
+
+            // Add the new transaction to the transaction history.
+            userData.TransactionHistory.Add(newTransaction);
+
+            // Convert the updated user data to JSON and save it to a file.
+            string updatedData = JsonConvert.SerializeObject(userData, Formatting.Indented);
+            try
+            {
+                File.WriteAllText(@"C:\Users\davit\source\repos\CardApplication\CardApplication\CardData.json", updatedData);
+                Console.WriteLine($"{transactionType} successful! Your new balance is: ${newBalance}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving data: {ex.Message}");
+            }
+        }
+
 
         public static void WithdrawMoney(UserData userData)
         {
-            
-            var currentBalance = userData.TransactionHistory.LastOrDefault()?.AmountUSD ?? 0;
-
-            Console.WriteLine($"Your current balance is: ${currentBalance}");
-
             Console.WriteLine("Enter the amount you wish to withdraw: ");
-
-            // Read input amount and parse
-            string input = Console.ReadLine(); 
-            if (!string.IsNullOrWhiteSpace(input) && decimal.TryParse(input, out decimal amountToWithdraw))
+            if (decimal.TryParse(Console.ReadLine(), out decimal amountToWithdraw) && amountToWithdraw > 0)
             {
-                if (amountToWithdraw <= 0)
-                {
-                    Console.WriteLine("The amount to withdraw should be greater than 0.");
-                    return;
-                }
-
-                if (amountToWithdraw > currentBalance)
-                {
-                    Console.WriteLine("Insufficient funds for this withdrawal.");
-                }
-                else
-                {
-                    
-                    decimal newBalance = currentBalance - amountToWithdraw;
-
-                    // Add a new transaction to the transaction history
-                    var newTransaction = new Transaction
-                    {
-                        TransactionDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ"),
-                        TransactionType = "Withdraw",
-                        AmountUSD = amountToWithdraw, 
-                        AmountEUR = amountToWithdraw
-                    };
-
-                    userData.TransactionHistory.Add(newTransaction);
-
-                    // Update the JSON file with the new transaction
-                    string updatedData = JsonConvert.SerializeObject(userData, Formatting.Indented);
-
-                    // Ensure you have permissions and the file path is correct
-                    try
-                    {
-                        File.WriteAllText(@"C:\Users\davit\source\repos\CardApplication\CardApplication\CardData.json", updatedData);
-                        Console.WriteLine($"Withdrawal successful! Your new balance is: ${newBalance}");
-
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error saving data: {ex.Message}");
-                    }
-                }
+                ProcessTransaction(userData, "Withdraw", amountToWithdraw);  // Process withdrawal.
             }
             else
             {
                 Console.WriteLine("Invalid input. Please enter a valid number.");
             }
         }
+
+
+        public static void DepositMoney(UserData userData)
+        {
+            Console.WriteLine("Enter the amount you wish to deposit: ");
+            if (decimal.TryParse(Console.ReadLine(), out decimal amountToDeposit) && amountToDeposit > 0)
+            {
+                ProcessTransaction(userData, "Deposit", amountToDeposit);  // Process deposit.
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+            }
+        }
+
+
+
 
 
 
@@ -112,58 +131,7 @@ namespace CardApplication
         }
 
 
-        public static void DepositMoney(UserData userData)
-        {
-            var lastTransaction = userData.TransactionHistory[userData.TransactionHistory.Count - 1];
-            // Get the current balance (assuming it's the amount of the last transaction)
-            var currentBalance = userData.TransactionHistory.LastOrDefault()?.AmountUSD; 
-
-            Console.WriteLine($"Your current balance is: ${currentBalance}");
-
-            
-            Console.WriteLine("Enter the amount you wish to deposit: ");
-
-            // Read input amount and parse
-            string input = Console.ReadLine(); // 
-            if (!string.IsNullOrWhiteSpace(input) && decimal.TryParse(input, out decimal amountToDeposit))
-            {
-                if (amountToDeposit <= 0)
-                {
-                    Console.WriteLine("The amount to deposit should be greater than 0.");
-                    return;
-                }
-
-                // Add a new transaction to the transaction history
-                var newTransaction = new Transaction
-                {
-                    TransactionDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ"),
-                    TransactionType = "Deposit",
-                    AmountUSD = amountToDeposit,
-                    AmountEUR = lastTransaction.AmountEUR
-                };
-
-                // Update the transaction history
-                userData.TransactionHistory.Add(newTransaction);
-
-                // Update the JSON file with the new transaction
-                string updatedData = JsonConvert.SerializeObject(userData, Formatting.Indented);
-
-                
-                try
-                {
-                    File.WriteAllText(@"C:\Users\davit\source\repos\CardApplication\CardApplication\CardData.json", updatedData);
-                    Console.WriteLine($"Deposit successful! Your new balance is: ${currentBalance + amountToDeposit}");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error saving data: {ex.Message}");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid input. Please enter a valid number.");
-            }
-        }
+        
 
 
         public static void ChangePinCode(UserData userData)

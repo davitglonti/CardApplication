@@ -12,19 +12,14 @@ namespace CardApplication
         /// The expected format is four groups of four digits separated ("1234-5678-9012-3456").
         public static bool IsCardNumberValid(string cardNumber, UserData userData)
         {
-            // Split card number into parts using "-"
-            string[] parts = cardNumber.Split("-");
+            // Remove dashes from user input and stored card number
+            string cleanedInput = cardNumber.Replace("-", "");
+            string cleanedStoredCardNumber = userData.CardDetails.CardNumber.Replace("-", "");
 
-            // Check if the card number has exactly four parts
-            if (parts.Length != 4)
+            
+            if (cleanedInput == cleanedStoredCardNumber)
             {
-                return false;
-            }
-
-            // Ensure each part is a group of digits and compare with stored card number
-            if (parts.All(part => part.All(char.IsDigit)) && cardNumber == userData.CardDetails.CardNumber)
-            {
-                return true; // Valid card number format and matches stored data
+                return true; 
             }
 
             return false; 
